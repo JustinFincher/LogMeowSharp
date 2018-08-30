@@ -14,6 +14,7 @@ namespace FinGameWorks
     public class AdbManager : Singleton<AdbManager>
     {
         public List<DeviceData> listOfDevices = new List<DeviceData>();
+        public int adbVersion;
         private Timer adbRefreshTimer;
         private string adbOutPath;
         private bool isWindows;
@@ -71,7 +72,7 @@ namespace FinGameWorks
             LoadADB();
             AdbServer server = new AdbServer();
             StartServerResult serverResult = server.StartServer(adbOutPath, true);
-            
+            adbVersion = AdbClient.Instance.GetAdbVersion();
             adbRefreshTimer = new Timer(state =>
             {
                 try
