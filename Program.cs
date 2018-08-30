@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using ImGuiNET;
 using Veldrid;
 using Veldrid.Sdl2;
@@ -21,10 +22,13 @@ namespace FinGameWorks
 
         static void Main(string[] args)
         {
+            bool isWindows = System.Runtime.InteropServices.RuntimeInformation
+               .IsOSPlatform(OSPlatform.Windows);
+
             VeldridStartup.CreateWindowAndGraphicsDevice(
                 new WindowCreateInfo(50, 50, 600, 400, WindowState.Normal, "LogMeow"),
                 new GraphicsDeviceOptions(true, null, true),
-                GraphicsBackend.Metal,
+                isWindows ? GraphicsBackend.Direct3D11 : GraphicsBackend.Metal,
                 out window,
                 out graphicDevice);
 
