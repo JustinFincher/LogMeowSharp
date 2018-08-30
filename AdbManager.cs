@@ -38,6 +38,24 @@ namespace FinGameWorks
                 Console.WriteLine(e);
                 throw;
             }
+
+            if (!isWindows)
+            {
+                Process process = new System.Diagnostics.Process();
+                ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo.RedirectStandardInput = true;
+                startInfo.RedirectStandardOutput = true;
+                startInfo.RedirectStandardError = false;
+                startInfo.UseShellExecute = false;
+                startInfo.FileName = "chmod";
+                startInfo.Arguments = "+x adb";
+                startInfo.WorkingDirectory = Directory.GetParent(assembly.Location).FullName;
+                process = Process.Start(startInfo);
+                string output = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+                Console.WriteLine(output);
+            }
         }
 
         public void UnloadADB()
