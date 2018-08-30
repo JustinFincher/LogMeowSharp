@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using ImGuiNET;
 using SharpAdbClient;
 
@@ -10,6 +12,8 @@ namespace FinGameWorks
         
         public bool adbPanelWindowShown;
         public bool logCatWindowShown;
+
+        public DeviceData selecteDeviceData;
 
         public void draw()
         {
@@ -23,19 +27,37 @@ namespace FinGameWorks
                 {
                     if (ImGui.Selectable(device.Model + "-" + device.Name + "-" + device.Serial))
                     {
-                        ConsoleOutputReceiver receiver = AdbManager.Instance.getAdbLogcat(device);
-                        Console.WriteLine(receiver.ToString());
+                        selecteDeviceData = device;
                     }
                     ImGui.NextColumn();
                 }
                 ImGui.Separator();
-                
                 ImGui.EndWindow();
+
             }
 
             if (logCatWindowShown)
             {
-                
+                List<String> stringList = new List<string>();
+                try
+                {
+                    stringList = selecteDeviceData == null
+                   ? new List<string>()
+                   : (AdbManager.Instance.serialStringBuilderDict.ContainsKey(selecteDeviceData.Serial) ? AdbManager.Instance.serialStringBuilderDict[
+                       selecteDeviceData.Serial] : new List<string>());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                ImGui.BeginWindow("ADB Logcat", ref logCatWindowShown, WindowFlags.Default);
+                for (int i = 0; i < stringList.Count; i++)
+                {
+                    ImGui.TextUnformatted(stringList[i]);
+                    ImGui.Separator();
+                }
+                ImGui.SetScrollHere(1.0f);
+                ImGui.EndWindow();
             }
         }
 

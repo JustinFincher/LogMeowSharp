@@ -126,9 +126,14 @@ namespace FinGameWorks
                 }
                 if (ImGui.BeginMenu("Widgets"))
                 {
-                    if (ImGui.MenuItem("ADB Panel", "P"))
+                    if (ImGui.MenuItem("ADB Devices", "P"))
                     {
                         LogMeowWorkspaceView.Instance.adbPanelWindowShown = true;
+                    }
+
+                    if (ImGui.MenuItem("ADB Logcat", "L"))
+                    {
+                        LogMeowWorkspaceView.Instance.logCatWindowShown = true;
                     }
                     ImGui.EndMenu();
                 }
