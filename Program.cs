@@ -22,6 +22,8 @@ namespace FinGameWorks
 
         static void Main(string[] args)
         {
+            AdbManager.Instance.Init();
+            
             bool isWindows = System.Runtime.InteropServices.RuntimeInformation
                .IsOSPlatform(OSPlatform.Windows);
 
@@ -59,7 +61,7 @@ namespace FinGameWorks
                 guiRender.Update(1f / 60f, snapshot); // Feed the input events to our ImGui controller, which passes them through to ImGui.
 
                 SubmitUI();
-                LogMeowWorkspace.Instance.draw();
+                Singleton<LogMeowWorkspaceView>.Instance.draw();
                 commandList.Begin();
                 commandList.SetFramebuffer(graphicDevice.MainSwapchain.Framebuffer);
                 commandList.ClearColorTarget(0, new RgbaFloat(backgroundColor.X, backgroundColor.Y, backgroundColor.Z, 1f));
@@ -126,7 +128,7 @@ namespace FinGameWorks
                 {
                     if (ImGui.MenuItem("ADB Panel", "P"))
                     {
-                        LogMeowWorkspace.Instance.adbPanelWindowShown = true;
+                        LogMeowWorkspaceView.Instance.adbPanelWindowShown = true;
                     }
                     ImGui.EndMenu();
                 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -10,26 +11,22 @@ using SharpAdbClient;
 
 namespace FinGameWorks
 {
-    public class AdbManager
+    public class AdbManager : Singleton<AdbManager>
     {
-//        public List<Device> listOfDevices = new List<Device>();
+        public List<DeviceData> listOfDevices = new List<DeviceData>();
         private Timer adbRefreshTimer;
         private string adbOutPath;
-
+        private bool isWindows;
+        private Assembly assembly;
 
         public void LoadADB()
         {
-            Assembly assembly = GetType().Assembly;
-            bool isWindows = System.Runtime.InteropServices.RuntimeInformation
-                .IsOSPlatform(OSPlatform.Windows);
             string adbPath = assembly.GetName().Name + ".Executable." + (isWindows ? "adb.exe" : "adb");
             Console.WriteLine(adbPath);
             Stream adbStream = assembly.GetManifestResourceStream(adbPath);
             byte[] adbdata = new byte[adbStream.Length];
             adbStream.Read(adbdata, 0, (int) adbStream.Length);
             adbStream.Close();
-            adbOutPath = Path.Combine(Directory.GetParent(assembly.Location).FullName,
-                (isWindows ? "adb.exe" : "adb"));
             Console.WriteLine(adbOutPath);
             try
             {
@@ -42,27 +39,53 @@ namespace FinGameWorks
             }
         }
 
-        private static readonly Lazy<AdbManager> lazy =
-            new Lazy<AdbManager>(() => new AdbManager());
-
-        public static AdbManager Instance
+        public void UnloadADB()
         {
-            get { return lazy.Value; }
+            foreach (var process in Process.GetProcessesByName("adb"))
+            {
+                process.Kill();
+            }
+            try
+            {
+                File.Delete(adbOutPath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
-        private AdbManager()
+        public void Init()
         {
-            Console.WriteLine("Adb Manager");
+        }
+
+        public AdbManager()
+        {
+            
+            assembly = GetType().Assembly;
+            isWindows = System.Runtime.InteropServices.RuntimeInformation
+                .IsOSPlatform(OSPlatform.Windows);
+            adbOutPath = Path.Combine(Directory.GetParent(assembly.Location).FullName,
+                (isWindows ? "adb.exe" : "adb"));
+            UnloadADB();
             LoadADB();
             AdbServer server = new AdbServer();
-            server.StartServer(adbOutPath, true);
-
-//            Timer adbRefreshTimer = new Timer(state =>
-//            {
-//                listOfDevices = AdbHelper.Instance.GetDevices(AndroidDebugBridge.SocketAddress).ToList();
-//                Console.WriteLine("listOfDevices");
-//                Console.WriteLine(String.Join(Environment.NewLine, listOfDevices.Select(device => device.Model)));
-//            }, null, 0, 2000);
+            StartServerResult serverResult = server.StartServer(adbOutPath, true);
+            
+            adbRefreshTimer = new Timer(state =>
+            {
+                try
+                {
+                    listOfDevices = AdbClient.Instance.GetDevices();
+//                    Console.WriteLine("listOfDevices");
+//                    Console.WriteLine(String.Join(Environment.NewLine, listOfDevices.Select(device => device.Name)));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }, null, 0, 2000);
         }
         
     }
