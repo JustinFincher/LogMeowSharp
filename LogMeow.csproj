@@ -13,6 +13,7 @@
     <PackageReference Include="ImGui.NET" Version="0.4.7" />
     <PackageReference Include="Veldrid.ImGui" Version="4.4.0" />
     <PackageReference Include="SharpAdbClient" Version="2.2.16" />
+    <PackageReference Include="morelinq" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Shaders/GLSL/imgui-vertex.glsl" LogicalName="imgui-vertex.glsl" />
@@ -27,5 +28,78 @@
   <ItemGroup>
     <EmbeddedResource Include="Fonts/*.ttf" />
     <EmbeddedResource Include="Executable/*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Managed.AndroidDebugBridge\AdbHelper.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Device.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\LogLevel.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\FileSystem.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\IPacketConsumer.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\DdmPreferences.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\FileEntry.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\IDevice.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\MountPoint.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\IClient.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\FilePermission.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\DebugPortManager.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\SyncService.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\RawImage.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\NullSyncProgressMonitor.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\ErrorCodeHelper.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\IO\LinuxPath.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\IO\Rgb565.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\IO\ScreenResolution.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\IO\ByteOrder.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\FileListingService.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Log.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\MultilineReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\IListingReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\NullOutputReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\ListingServiceReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\MountPointReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\CommandResultReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\GetPropReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\PackageManagerReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\BatteryReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\LinkResoverReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\EnvironmentVariablesReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\IShellOutputReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\InstallReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\CommandErrorReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Receivers\ConsoleOutputReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Exceptions\AdbException.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Exceptions\PermissionDeniedException.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Exceptions\AdbCommandRejectedException.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Exceptions\PackageInstallationException.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Exceptions\CommandAbortingException.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Exceptions\UnknownOptionException.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Exceptions\ShellCommandUnresponsiveException.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Exceptions\BadPacketException.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Exceptions\DeviceNotFoundException.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\JdwpPacket.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\MonitorThread.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Extensions\IntegerHelper.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Extensions\ReflectionHelper.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Extensions\ArrayHelper.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Extensions\BytesHelper.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Extensions\StringHelper.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Extensions\FileInfoHelper.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Extensions\DateTimeHelper.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Extensions\ThrowIf.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\IDebugPortProvider.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Logs\LogEntry.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Logs\LogReceiver.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Logs\ILogListener.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Properties\AssemblyInfo.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\DeviceEventArgs.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\ISyncProgressMonitor.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\PackageManager.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\Debugger.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\DeviceMonitor.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\ILogOutput.cs" />
+    <Compile Remove="Managed.AndroidDebugBridge\SyncResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Managed.AndroidDebugBridge\packages.config" />
   </ItemGroup>
 </Project>

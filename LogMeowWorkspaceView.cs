@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ImGuiNET;
-using SharpAdbClient;
+using Managed.Adb;
 
 namespace FinGameWorks
 {
@@ -19,16 +19,10 @@ namespace FinGameWorks
 
                 ImGui.Columns(1,"Devices",true);
                 ImGui.Separator();
-                foreach (DeviceData device in Singleton<AdbManager>.Instance.listOfDevices)
+                foreach (Device device in Singleton<AdbManager>.Instance.listOfDevices)
                 {
-                    if (ImGui.Selectable(device.Model + "-" + device.Name + "-" + device.Serial))
+                    if (ImGui.Selectable(device.Model + "-" + device.AvdName + "-" + device.SerialNumber))
                     {
-                        var receiver = new ConsoleOutputReceiver();
-
-                        AdbClient.Instance.ExecuteRemoteCommand("echo Hello, World", device, receiver);
-
-                        Console.WriteLine("The device responded:");
-                        Console.WriteLine(receiver.ToString());
                     }
                     ImGui.NextColumn();
                 }
