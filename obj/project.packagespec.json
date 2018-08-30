@@ -1,0 +1,63 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/Users/fincher/Develop/Xamarin/LogMeow/LogMeow.csproj",
+    "projectName": "LogMeow",
+    "projectPath": "/Users/fincher/Develop/Xamarin/LogMeow/LogMeow.csproj",
+    "outputPath": "/Users/fincher/Develop/Xamarin/LogMeow/obj/",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp2.0"
+    ],
+    "frameworks": {
+      "netcoreapp2.0": {
+        "projectReferences": {}
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.0": {
+      "dependencies": {
+        "ImGui.NET": {
+          "target": "Package",
+          "version": "[0.4.7, )"
+        },
+        "Microsoft.NETCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.0.0, )",
+          "autoReferenced": true
+        },
+        "SharpAdbClient": {
+          "target": "Package",
+          "version": "[2.2.16, )"
+        },
+        "Veldrid": {
+          "target": "Package",
+          "version": "[4.4.0, )"
+        },
+        "Veldrid.ImGui": {
+          "target": "Package",
+          "version": "[4.4.0, )"
+        },
+        "Veldrid.StartupUtilities": {
+          "target": "Package",
+          "version": "[4.4.0, )"
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}
