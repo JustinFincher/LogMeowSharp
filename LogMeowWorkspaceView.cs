@@ -23,11 +23,7 @@ namespace FinGameWorks
                 {
                     if (ImGui.Selectable(device.Model + "-" + device.Name + "-" + device.Serial))
                     {
-                        var receiver = new ConsoleOutputReceiver();
-
-                        AdbClient.Instance.ExecuteRemoteCommand("echo Hello, World", device, receiver);
-
-                        Console.WriteLine("The device responded:");
+                        ConsoleOutputReceiver receiver = AdbManager.Instance.getAdbLogcat(device);
                         Console.WriteLine(receiver.ToString());
                     }
                     ImGui.NextColumn();

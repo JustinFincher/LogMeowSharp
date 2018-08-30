@@ -88,6 +88,13 @@ namespace FinGameWorks
                 }
             }, null, 0, 2000);
         }
-        
+
+        public ConsoleOutputReceiver getAdbLogcat(DeviceData deviceData)
+        {
+            var receiver = new ConsoleOutputReceiver();
+            AdbClient.Instance.ExecuteRemoteCommand("logcat", deviceData, receiver);
+            return receiver;
+        }
+
     }
 }
