@@ -8,10 +8,15 @@
     <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Veldrid" Version="4.4.0" />
-    <PackageReference Include="Veldrid.StartupUtilities" Version="4.4.0" />
+    <PackageReference Include="Camalot.Common" Version="1.0.5937.17275" />
+    <PackageReference Include="Managed.Adb" Version="2.0.131.13916" />
+    <PackageReference Include="Managed.Adb.x64" Version="2.0.131.13916" />
+    <PackageReference Include="morelinq" Version="1.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="Veldrid" Version="4.0.0" />
+    <PackageReference Include="Veldrid.StartupUtilities" Version="4.0.0" />
     <PackageReference Include="ImGui.NET" Version="0.4.7" />
-    <PackageReference Include="Veldrid.ImGui" Version="4.4.0" />
+    <PackageReference Include="Veldrid.ImGui" Version="4.0.0" />
     <PackageReference Include="SharpAdbClient" Version="2.2.16" />
   </ItemGroup>
   <ItemGroup>

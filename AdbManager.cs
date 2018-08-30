@@ -62,7 +62,7 @@ namespace FinGameWorks
 
         public AdbManager()
         {
-            
+
             //assembly = GetType().Assembly;
             //isWindows = System.Runtime.InteropServices.RuntimeInformation
             //    .IsOSPlatform(OSPlatform.Windows);
@@ -72,7 +72,7 @@ namespace FinGameWorks
             //LoadADB();
 
 
-
+            AndroidDebugBridge.CreateBridge(@"C:\Program Files (x86)\Minimal ADB and Fastboot\adb.exe", true);
             //AdbServer server = new AdbServer();
             //StartServerResult serverResult = server.StartServer(adbOutPath, true);
             //adbVersion = AdbClient.Instance.GetAdbVersion();

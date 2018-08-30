@@ -36,11 +36,11 @@ namespace FinGameWorks
 
             window.Resized += () =>
             {
-                graphicDevice.MainSwapchain.Resize((uint)window.Width, (uint)window.Height);
+             //   graphicDevice.MainSwapchain.Resize((uint)window.Width, (uint)window.Height);
                 guiRender.WindowResized(window.Width, window.Height);
             };
             commandList = graphicDevice.ResourceFactory.CreateCommandList();
-            guiRender = new ImGuiRenderer(graphicDevice, graphicDevice.MainSwapchain.Framebuffer.OutputDescription, window.Width, window.Height);
+            guiRender = new ImGuiRenderer(graphicDevice, graphicDevice.SwapchainFramebuffer.OutputDescription, window.Width, window.Height);
 
             window.Closed += () =>
             {
@@ -63,12 +63,12 @@ namespace FinGameWorks
                 SubmitUI();
                 Singleton<LogMeowWorkspaceView>.Instance.draw();
                 commandList.Begin();
-                commandList.SetFramebuffer(graphicDevice.MainSwapchain.Framebuffer);
+                commandList.SetFramebuffer(graphicDevice.SwapchainFramebuffer);
                 commandList.ClearColorTarget(0, new RgbaFloat(backgroundColor.X, backgroundColor.Y, backgroundColor.Z, 1f));
                 guiRender.Render(graphicDevice, commandList);
                 commandList.End();
                 graphicDevice.SubmitCommands(commandList);
-                graphicDevice.SwapBuffers(graphicDevice.MainSwapchain);
+                graphicDevice.SwapBuffers();
             }
 
             graphicDevice.WaitForIdle();
